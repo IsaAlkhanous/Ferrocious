@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpbxuua53w4m0"]
+
+[ext_resource type="Script" path="res://Scenes/bullet.gd" id="1_gdv2x"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_aniia"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3sxo"]
+shading_mode = 0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7i0wc"]
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_gdv2x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_aniia")
+surface_material_override/0 = SubResource("StandardMaterial3D_e3sxo")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+shape = SubResource("CapsuleShape3D_7i0wc")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00842208)
+target_position = Vector3(0, 0, -1.125)
+collide_with_areas = true
+
+[connection signal="body_entered" from="MeshInstance3D/Area3D" to="." method="_on_area_3d_body_entered"]

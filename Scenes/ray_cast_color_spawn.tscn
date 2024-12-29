@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8kfg6xsfi0c7"]
+
+[ext_resource type="Script" path="res://Scripts/Spawn_Color.gd" id="1_0n02l"]
+
+[node name="RayCast3D" type="RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+target_position = Vector3(0, 0, -1.1)
+script = ExtResource("1_0n02l")
