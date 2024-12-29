@@ -1,24 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjkn5wvgj8c37"]
+[gd_scene load_steps=6 format=3 uid="uid://bjkn5wvgj8c37"]
 
-[ext_resource type="Texture2D" uid="uid://dfokonehcju8s" path="res://assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_dtvrr"]
 [ext_resource type="Texture2D" uid="uid://c0cqxq1hul2s3" path="res://assets/textures/dev/grids/Dark/texture_07.png" id="1_rjw52"]
 [ext_resource type="PackedScene" uid="uid://ypo3kjihcd7w" path="res://player.tscn" id="3_jfvw6"]
+[ext_resource type="PackedScene" uid="uid://c5ci23d4w2sj6" path="res://assets/New Map.tscn" id="3_ouxgl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rn5nw"]
 albedo_texture = ExtResource("1_rjw52")
 uv1_triplanar = true
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nsfei"]
-panorama = ExtResource("1_dtvrr")
-
-[sub_resource type="Sky" id="Sky_krdow"]
-sky_material = SubResource("PanoramaSkyMaterial_nsfei")
-
-[sub_resource type="Environment" id="Environment_nmtfc"]
-background_mode = 2
-sky = SubResource("Sky_krdow")
-tonemap_mode = 2
-glow_enabled = true
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m0bap"]
 
 [node name="world" type="Node3D"]
 
@@ -52,15 +42,6 @@ use_collision = true
 size = Vector3(5.44501, 1, 7.38611)
 material = SubResource("StandardMaterial3D_rn5nw")
 
-[node name="env" type="Node3D" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="env"]
-environment = SubResource("Environment_nmtfc")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-shadow_enabled = true
-
 [node name="GridContainer" type="GridContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,6 +62,10 @@ size = Vector2i(574, 648)
 render_target_update_mode = 4
 
 [node name="player1" parent="GridContainer/SubViewportContainer/SubViewport" instance=ExtResource("3_jfvw6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3639, 6.99715, 65.1322)
+
+[node name="MeshInstance3D" parent="GridContainer/SubViewportContainer/SubViewport/player1" index="4"]
+material_override = SubResource("StandardMaterial3D_m0bap")
 
 [node name="player_2_screen" type="SubViewportContainer" parent="GridContainer"]
 layout_mode = 2
@@ -94,5 +79,10 @@ size = Vector2i(574, 648)
 render_target_update_mode = 4
 
 [node name="player2" parent="GridContainer/player_2_screen/SubViewport" instance=ExtResource("3_jfvw6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78521, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75125, 10.3777, 58.0283)
 player_id = 2
+
+[node name="Node3D" parent="." instance=ExtResource("3_ouxgl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 78.4101)
+
+[editable path="GridContainer/SubViewportContainer/SubViewport/player1"]

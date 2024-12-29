@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ypo3kjihcd7w"]
+[gd_scene load_steps=10 format=3 uid="uid://ypo3kjihcd7w"]
 
 [ext_resource type="Script" path="res://Scripts/character_body_3d.gd" id="1_gi7gy"]
 [ext_resource type="PackedScene" uid="uid://o4sa7ou3twpm" path="res://Scenes/pistol.tscn" id="2_vgpxi"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ufkrh"]
 height = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4itqr"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8mxs"]
 albedo_color = Color(0.443137, 1, 1, 1)
@@ -43,9 +46,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 [node name="Pistol" parent="head/eyes/Camera3D" instance=ExtResource("2_vgpxi")]
 transform = Transform3D(0.0962559, 0, 0.0271071, 0, 0.1, 0, -0.0271071, 0, 0.0962559, 0.229348, -0.108245, -0.507495)
 
-[node name="Marker3D" type="Marker3D" parent="head/eyes/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -150)
-
 [node name="TextureRect" type="TextureRect" parent="head/eyes/Camera3D"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -62,6 +62,7 @@ texture = ExtResource("3_k202o")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.952987, 0)
+material_override = SubResource("StandardMaterial3D_4itqr")
 mesh = SubResource("CapsuleMesh_rdqu5")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
