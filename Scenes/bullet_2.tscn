@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://cih88bbasmh1l"]
+
+[ext_resource type="Script" path="res://Scenes/bullet.gd" id="1_axuae"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wk15l"]
+size = Vector3(1.5, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tocnn"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v75t7"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3c7er"]
+emission_shape_offset = Vector3(0, 0, 1)
+emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w71lb"]
+albedo_color = Color(0, 0, 0, 1)
+emission = Color(0.839216, 0, 0, 1)
+emission_energy_multiplier = 25.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_op065"]
+material = SubResource("StandardMaterial3D_w71lb")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Bullet_2" type="Node3D"]
+script = ExtResource("1_axuae")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_wk15l")
+surface_material_override/0 = SubResource("StandardMaterial3D_tocnn")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00354433, 0.00465453, 0.00464714)
+shape = SubResource("BoxShape3D_v75t7")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.97459)
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019877, -0.0107609, -0.208538)
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_3c7er")
+draw_pass_1 = SubResource("BoxMesh_op065")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="MeshInstance3D/Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://d6gewbigoh1f"]
+
+[ext_resource type="PackedScene" uid="uid://bgok3cq4stw2l" path="res://assets/New Map.tscn" id="1_5jesf"]
+[ext_resource type="PackedScene" uid="uid://ypo3kjihcd7w" path="res://player.tscn" id="2_0s2p7"]
+[ext_resource type="PackedScene" uid="uid://bhk2y8n75xwdy" path="res://pause_menu.tscn" id="3_lqhr1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a57p"]
+
+[node name="Map" type="Node3D"]
+
+[node name="Node3D" parent="." instance=ExtResource("1_5jesf")]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="player1" parent="GridContainer/SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("2_0s2p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5648, 16.3547, 1.07738)
+collision_layer = 3
+safe_margin = 0.02
+
+[node name="Pistol" parent="GridContainer/SubViewportContainer/SubViewport/player1/head/eyes/Camera3D" index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.176734, -0.116165, -0.507495)
+
+[node name="MeshInstance3D" parent="GridContainer/SubViewportContainer/SubViewport/player1" index="4"]
+material_override = SubResource("StandardMaterial3D_8a57p")
+
+[node name="player_2_screen" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/player_2_screen"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="player2" parent="GridContainer/player_2_screen/SubViewport" groups=["player"] instance=ExtResource("2_0s2p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75125, 20.6522, 4.19405)
+safe_margin = 0.02
+player_id = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("3_lqhr1")]
+visible = false
+
+[editable path="GridContainer/SubViewportContainer/SubViewport/player1"]

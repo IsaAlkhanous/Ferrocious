@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c0cqxq1hul2s3" path="res://assets/textures/dev/grids/Dark/texture_07.png" id="1_rjw52"]
 [ext_resource type="PackedScene" uid="uid://ypo3kjihcd7w" path="res://player.tscn" id="3_jfvw6"]
-[ext_resource type="PackedScene" uid="uid://c5ci23d4w2sj6" path="res://assets/New Map.tscn" id="3_ouxgl"]
+[ext_resource type="PackedScene" uid="uid://bgok3cq4stw2l" path="res://assets/New Map.tscn" id="3_ouxgl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rn5nw"]
 albedo_texture = ExtResource("1_rjw52")
@@ -61,8 +61,13 @@ handle_input_locally = false
 size = Vector2i(574, 648)
 render_target_update_mode = 4
 
-[node name="player1" parent="GridContainer/SubViewportContainer/SubViewport" instance=ExtResource("3_jfvw6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3639, 6.99715, 65.1322)
+[node name="player1" parent="GridContainer/SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("3_jfvw6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5648, 0.354739, 1.07738)
+collision_layer = 3
+safe_margin = 0.02
+
+[node name="Pistol" parent="GridContainer/SubViewportContainer/SubViewport/player1/head/eyes/Camera3D" index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.176734, -0.116165, -0.507495)
 
 [node name="MeshInstance3D" parent="GridContainer/SubViewportContainer/SubViewport/player1" index="4"]
 material_override = SubResource("StandardMaterial3D_m0bap")
@@ -78,8 +83,9 @@ handle_input_locally = false
 size = Vector2i(574, 648)
 render_target_update_mode = 4
 
-[node name="player2" parent="GridContainer/player_2_screen/SubViewport" instance=ExtResource("3_jfvw6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75125, 10.3777, 58.0283)
+[node name="player2" parent="GridContainer/player_2_screen/SubViewport" groups=["player"] instance=ExtResource("3_jfvw6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75125, 0.260919, 0.671329)
+safe_margin = 0.02
 player_id = 2
 
 [node name="Node3D" parent="." instance=ExtResource("3_ouxgl")]

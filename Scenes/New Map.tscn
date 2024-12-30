@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgok3cq4stw2l"]
+[gd_scene load_steps=6 format=3 uid="uid://c5ci23d4w2sj6"]
 
-[ext_resource type="PackedScene" uid="uid://ifmwjglwqvnc" path="res://assets/Level_Remake.blend" id="1_67kcw"]
+[ext_resource type="PackedScene" uid="uid://cydpmvhvptd80" path="res://Level_Remake.blend" id="1_67kcw"]
 [ext_resource type="Texture2D" uid="uid://dfokonehcju8s" path="res://assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_nhknf"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_cej4w"]
@@ -22,8 +22,13 @@ reflected_light_source = 1
 
 [node name="Level_Remake" parent="." instance=ExtResource("1_67kcw")]
 
+[node name="Cube_014" parent="Level_Remake" index="0"]
+transform = Transform3D(0.82002, 0, 0, 0, 0.82002, 0, 0, 0, 0.82002, 0, 0, 0)
+
 [node name="env" type="Node3D" parent="Level_Remake"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230.578, -0.288925, -188.515)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Level_Remake/env"]
 environment = SubResource("Environment_pdv4t")
+
+[editable path="Level_Remake"]

@@ -11,7 +11,7 @@ extends CharacterBody3D
 @onready var player_camera_3d: Camera3D = $head/eyes/Camera3D
 
 #bullets
-var bullet = load("res://Scenes/bullet.tscn")
+var bullet
 var instance
 
 # Speed Variables
@@ -59,8 +59,14 @@ var head_bobbing_crouching_intensity = 0.05
 var head_bobbing_vector = Vector2.ZERO
 var head_bobbing_index = 0.0
 var head_bobbing_intensity = 0.0
+
+var health = 3
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) #lock mouse into game window
+	if player_id == 1:
+		bullet = load("res://Scenes/bullet_1.tscn")
+	else:
+		bullet = load("res://Scenes/bullet_2.tscn")
 	
 	# handle camera movement using the mouse (and Quit)
 func _input(event):
@@ -175,28 +181,17 @@ func _physics_process(delta: float) -> void:
 	#Shooting mechanics
 	if Input.is_action_just_pressed("shooting_%s" % [player_id]):
 		if !gun_anim.is_playing():
-			shoot()
+			var instance = bullet.instantiate()
+			instance.position = gun_barrel.global_position
+			instance.transform.basis = gun_barrel.global_transform.basis
+			get_parent().add_child(instance)
+		
 	move_and_slide()
 	
-func shoot():
-	# Camera settings
-	var camera_transform = player_camera_3d.global_transform
-	var camera_forward = -camera_transform.basis.z
-	# Raycasting to find a hitpoint
-	var from_pos = camera_transform.origin
-	var ray_length = 1000.0
-	var to_pos = from_pos + camera_forward * ray_length
-	var space_state = get_world_3d().direct_space_state
-	var ray_params = PhysicsRayQueryParameters3D.new()
-	ray_params.from = from_pos
-	ray_params.to = to_pos
-	var result = space_state.intersect_ray(ray_params)
-	var target_point = to_pos
-	if result:
-		target_point = result.position
-	var bullet_instance = bullet.instantiate()
-	var muzzle_transform = gun_barrel.global_transform
-	bullet_instance.global_transform = muzzle_transform
-	bullet_instance.look_at(target_point, Vector3.UP)
-	get_tree().get_current_scene().add_child(bullet_instance)
+func hit():
+	health -= 1
+	if health <= 0:
+		queue_free()
+		
+
 		
