@@ -1,12 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://d6gewbigoh1f"]
+[gd_scene load_steps=13 format=3 uid="uid://d6gewbigoh1f"]
 
 [ext_resource type="PackedScene" uid="uid://bgok3cq4stw2l" path="res://assets/New Map.tscn" id="1_5jesf"]
 [ext_resource type="PackedScene" uid="uid://ypo3kjihcd7w" path="res://player.tscn" id="2_0s2p7"]
 [ext_resource type="PackedScene" uid="uid://bhk2y8n75xwdy" path="res://pause_menu.tscn" id="3_lqhr1"]
+[ext_resource type="PackedScene" uid="uid://mmqsyvcmimje" path="res://Paint/multi_mesh_instance_3d_white.tscn" id="4_pw7ax"]
+[ext_resource type="Script" path="res://Paint/data_splash.gd" id="5_ea5wu"]
+[ext_resource type="PackedScene" uid="uid://cefteckdl8mbi" path="res://Paint/multi_mesh_instance_3d_black.tscn" id="5_fs366"]
+[ext_resource type="PlaneMesh" uid="uid://cw5o77c3wve7d" path="res://Paint/shot.tres" id="5_qlwq2"]
+[ext_resource type="Material" uid="uid://dmxdq32x4juhf" path="res://Paint/Black_Splash.tres" id="6_wsc78"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a57p"]
 
-[node name="Map" type="Node3D"]
+[sub_resource type="MultiMesh" id="MultiMesh_gwrqo"]
+transform_format = 1
+mesh = ExtResource("5_qlwq2")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_b08kx"]
+material = ExtResource("6_wsc78")
+size = Vector2(0.2, 0.2)
+center_offset = Vector3(0, 0.01, 0)
+
+[sub_resource type="MultiMesh" id="MultiMesh_0xk8r"]
+transform_format = 1
+mesh = SubResource("PlaneMesh_b08kx")
+
+[node name="Map" type="Node3D" groups=["level"]]
 
 [node name="Node3D" parent="." instance=ExtResource("1_5jesf")]
 
@@ -30,7 +48,7 @@ size = Vector2i(574, 648)
 render_target_update_mode = 4
 
 [node name="player1" parent="GridContainer/SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("2_0s2p7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5648, 16.3547, 1.07738)
+transform = Transform3D(-0.257015, 0, 0.966407, 0, 1, 0, -0.966407, 0, -0.257015, -9.07832, 16.3547, 19.2511)
 collision_layer = 3
 safe_margin = 0.02
 
@@ -60,5 +78,13 @@ player_id = 2
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("3_lqhr1")]
 visible = false
+
+[node name="MultiMeshInstance3DWhite" parent="." groups=["white"] instance=ExtResource("4_pw7ax")]
+multimesh = SubResource("MultiMesh_gwrqo")
+script = ExtResource("5_ea5wu")
+
+[node name="MultiMeshInstance3DBlack" parent="." groups=["black"] instance=ExtResource("5_fs366")]
+multimesh = SubResource("MultiMesh_0xk8r")
+script = ExtResource("5_ea5wu")
 
 [editable path="GridContainer/SubViewportContainer/SubViewport/player1"]

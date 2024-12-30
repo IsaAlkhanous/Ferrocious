@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://mmqsyvcmimje"]
+
+[ext_resource type="PlaneMesh" uid="uid://cw5o77c3wve7d" path="res://Paint/shot.tres" id="1_1x7ce"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_gwrqo"]
+transform_format = 1
+mesh = ExtResource("1_1x7ce")
+
+[node name="MultiMeshInstance3DWhite" type="MultiMeshInstance3D"]
+multimesh = SubResource("MultiMesh_gwrqo")

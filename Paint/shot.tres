@@ -1,0 +1,8 @@
+[gd_resource type="PlaneMesh" load_steps=2 format=3 uid="uid://cw5o77c3wve7d"]
+
+[ext_resource type="Material" uid="uid://d0nfk4yrtedwp" path="res://Paint/White_Splash.tres" id="1_stvcl"]
+
+[resource]
+material = ExtResource("1_stvcl")
+size = Vector2(0.2, 0.2)
+center_offset = Vector3(0, 0.01, 0)

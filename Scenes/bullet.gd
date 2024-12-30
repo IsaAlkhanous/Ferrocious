@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 			collider.hit()
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
-		print(collider, collider_pos)
+		
 	
 func on_timer_timeout():
 	queue_free()

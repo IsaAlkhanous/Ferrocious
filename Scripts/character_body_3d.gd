@@ -73,9 +73,7 @@ func _input(event):
 	if event is InputEventMouseMotion and player_id == 1: #handle mouse rotation
 		rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENS))
 		head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENS))
-		head.rotation.x = clamp(head.rotation.x,deg_to_rad(-89),deg_to_rad(89))	
-	if Input.is_action_just_pressed("Quit_%s" % [player_id]): #Press Esc to Quit the Scene
-		get_tree().quit()
+		head.rotation.x = clamp(head.rotation.x,deg_to_rad(-89),deg_to_rad(89))
 		
 	# Movement mechanics
 func _physics_process(delta: float) -> void:

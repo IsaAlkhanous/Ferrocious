@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://1pdd8m0bqum8"]
+
+[ext_resource type="PlaneMesh" uid="uid://cw5o77c3wve7d" path="res://Paint/shot.tres" id="1_815d0"]
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = ExtResource("1_815d0")

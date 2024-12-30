@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cih88bbasmh1l"]
+[gd_scene load_steps=9 format=3 uid="uid://cih88bbasmh1l"]
 
 [ext_resource type="Script" path="res://Scenes/bullet.gd" id="1_axuae"]
+[ext_resource type="Script" path="res://Paint/ray_for_bullet.gd" id="2_rs37f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wk15l"]
 size = Vector3(1.5, 1, 1)
@@ -46,6 +47,8 @@ shape = SubResource("BoxShape3D_v75t7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.97459)
 target_position = Vector3(0, 0, -3)
 collide_with_areas = true
+script = ExtResource("2_rs37f")
+color_white = false
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019877, -0.0107609, -0.208538)

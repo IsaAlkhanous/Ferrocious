@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cic2m7rt58a4d"]
+[gd_scene load_steps=11 format=3 uid="uid://cic2m7rt58a4d"]
 
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="1_kmxtp"]
+[ext_resource type="Texture2D" uid="uid://hrsdf8ri0gty" path="res://assets/main_menu/MainMenuNoButtons.webp" id="2_bcsdc"]
+[ext_resource type="Texture2D" uid="uid://bl618f7jxxn3n" path="res://assets/main_menu/PlayButton.webp" id="3_6cke1"]
+[ext_resource type="Texture2D" uid="uid://dgsfvp8ehvvcj" path="res://assets/main_menu/HowToButton.webp" id="4_ap8ko"]
+[ext_resource type="Texture2D" uid="uid://11wftj6pnlmk" path="res://assets/main_menu/InvPlayButton.webp" id="4_diam4"]
+[ext_resource type="Texture2D" uid="uid://dmjuvybmcay8" path="res://assets/main_menu/OptionsButton.webp" id="5_f4y3h"]
+[ext_resource type="Texture2D" uid="uid://cyp6145yjnjy1" path="res://assets/main_menu/InvHowToButton.webp" id="6_0iued"]
+[ext_resource type="Texture2D" uid="uid://cogtiswx0laa" path="res://assets/main_menu/CreditsButton.webp" id="6_74ypf"]
+[ext_resource type="Texture2D" uid="uid://gl1ms3qyvnb" path="res://assets/main_menu/InvOptionsButton.webp" id="8_24sa8"]
+[ext_resource type="Texture2D" uid="uid://rkb0shc276ft" path="res://assets/main_menu/InvCreditsButton.webp" id="10_1wwn6"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -11,31 +20,67 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kmxtp")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bcsdc")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 193.0
+offset_right = -549.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
-[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Play" type="TextureButton" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "PLAY"
+texture_normal = ExtResource("3_6cke1")
+texture_pressed = ExtResource("3_6cke1")
+texture_hover = ExtResource("4_diam4")
+stretch_mode = 0
 
-[node name="HowToPlay" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="HowToPlay" type="TextureButton" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "HOW TO PLAY"
+texture_normal = ExtResource("4_ap8ko")
+texture_pressed = ExtResource("4_ap8ko")
+texture_hover = ExtResource("6_0iued")
+stretch_mode = 0
 
-[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Settings" type="TextureButton" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "SETTINGS"
+texture_normal = ExtResource("5_f4y3h")
+texture_pressed = ExtResource("5_f4y3h")
+texture_hover = ExtResource("8_24sa8")
+stretch_mode = 0
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Quit" type="TextureButton" parent="NinePatchRect"]
 layout_mode = 2
-text = "QUIT"
+offset_left = 2.0
+offset_top = 498.0
+offset_right = 600.0
+offset_bottom = 658.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("6_74ypf")
+texture_pressed = ExtResource("6_74ypf")
+texture_hover = ExtResource("10_1wwn6")
+stretch_mode = 0
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="NinePatchRect/Quit" to="." method="_on_quit_pressed"]

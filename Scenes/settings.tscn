@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://uqu01b72k5i3"]
+[gd_scene load_steps=5 format=3 uid="uid://uqu01b72k5i3"]
 
 [ext_resource type="Script" path="res://Scripts/settings.gd" id="1_pi8g5"]
+[ext_resource type="Texture2D" uid="uid://tpo6hbs1lnlf" path="res://assets/OptionsMenuMockUp.webp" id="2_vxlru"]
+[ext_resource type="Texture2D" uid="uid://cx63bndnra4u5" path="res://assets/main_menu/BackButton.webp" id="3_vx3ty"]
+[ext_resource type="Texture2D" uid="uid://b67jpovbjp1e0" path="res://assets/main_menu/InvBackButton.webp" id="4_xvh2a"]
 
-[node name="Menu" type="Control"]
+[node name="settings" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,32 +14,48 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pi8g5")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_vxlru")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 345.0
+offset_top = 188.0
+offset_right = -368.0
+offset_bottom = -139.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
 layout_mode = 2
 
-[node name="VolumeLAbel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="VolumeLAbel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Volume
 "
 
-[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 rounded = true
 
-[node name="ResolutionsLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="ResolutionsLabel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Resolution
 "
 
-[node name="ResolutionOptions" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+[node name="ResolutionOptions" type="OptionButton" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 item_count = 4
 popup/item_0/text = "1920x1080"
@@ -47,11 +66,13 @@ popup/item_2/id = 2
 popup/item_3/text = "1280×800"
 popup/item_3/id = 3
 
-[node name="WindowModeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="WindowModeLabel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Window Mode"
 
-[node name="WindowMode" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+[node name="WindowMode" type="OptionButton" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 item_count = 3
 popup/item_0/text = "Windowed"
@@ -60,12 +81,19 @@ popup/item_1/id = 1
 popup/item_2/text = "Exclusive FullScreen"
 popup/item_2/id = 2
 
-[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Back"
+[node name="Back" type="TextureButton" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 535.0
+offset_right = 991.0
+offset_bottom = 692.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_vx3ty")
+texture_pressed = ExtResource("3_vx3ty")
+texture_hover = ExtResource("4_xvh2a")
 
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/WindowMode" to="." method="_on_resolution_options_item_selected"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/WindowMode" to="." method="_on_window_mode_item_selected"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="NinePatchRect/MarginContainer/VBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="item_selected" from="NinePatchRect/MarginContainer/VBoxContainer/ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
+[connection signal="item_selected" from="NinePatchRect/MarginContainer/VBoxContainer/WindowMode" to="." method="_on_resolution_options_item_selected"]
+[connection signal="item_selected" from="NinePatchRect/MarginContainer/VBoxContainer/WindowMode" to="." method="_on_window_mode_item_selected"]
+[connection signal="pressed" from="NinePatchRect/Back" to="." method="_on_back_pressed"]
