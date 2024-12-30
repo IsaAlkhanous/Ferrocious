@@ -11,6 +11,7 @@ extends CharacterBody3D
 @onready var spawn_points: Node3D = $"../../../../spawn_points"
 @onready var label_timer: Label = $"../../../../Timer/Label"
 @onready var timer: Timer = $"../../../../Timer"
+@onready var shoot_1: AudioStreamPlayer = $Shoot1
 
 #bullets
 var bullet
@@ -190,6 +191,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("shooting_%s" % [player_id]):
 		if !gun_anim.is_playing():
 			var instance = bullet.instantiate()
+			shoot_1.play()
 			instance.position = gun_barrel.global_position
 			instance.transform.basis = gun_barrel.global_transform.basis
 			get_parent().add_child(instance)

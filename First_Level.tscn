@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d6gewbigoh1f"]
+[gd_scene load_steps=18 format=3 uid="uid://d6gewbigoh1f"]
 
 [ext_resource type="Script" path="res://first_level.gd" id="1_5edrf"]
 [ext_resource type="PackedScene" uid="uid://bgok3cq4stw2l" path="res://assets/New Map.tscn" id="1_5jesf"]
@@ -11,8 +11,14 @@
 [ext_resource type="Material" uid="uid://dmxdq32x4juhf" path="res://Paint/Black_Splash.tres" id="6_wsc78"]
 [ext_resource type="Script" path="res://timer.gd" id="9_qjwpv"]
 [ext_resource type="Script" path="res://spawn_points.gd" id="9_vipt8"]
+[ext_resource type="AudioStream" uid="uid://cajkhuc6bcnyd" path="res://assets/Cyberpunk Gaming Rave by Infraction [No Copyright Music]  Black Ice.mp3" id="12_m36re"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a57p"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgbof"]
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4kpje"]
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
 
 [sub_resource type="MultiMesh" id="MultiMesh_gwrqo"]
 transform_format = 1
@@ -56,11 +62,11 @@ transform = Transform3D(-0.257015, 0, 0.966407, 0, 1, 0, -0.966407, 0, -0.257015
 collision_layer = 3
 safe_margin = 0.02
 
+[node name="Legs_Bone" parent="GridContainer/SubViewportContainer/SubViewport/player1/Player_w_anims/Armature_001/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_hgbof")
+
 [node name="Pistol" parent="GridContainer/SubViewportContainer/SubViewport/player1/head/eyes/Camera3D" index="0"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.176734, -0.116165, -0.507495)
-
-[node name="MeshInstance3D" parent="GridContainer/SubViewportContainer/SubViewport/player1" index="4"]
-material_override = SubResource("StandardMaterial3D_8a57p")
 
 [node name="score_1" type="Label" parent="GridContainer/SubViewportContainer/SubViewport/player1"]
 offset_right = 40.0
@@ -82,6 +88,9 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75125, 20.6522, 4.19405)
 safe_margin = 0.02
 player_id = 2
+
+[node name="Legs_Bone" parent="GridContainer/player_2_screen/SubViewport/player2/Player_w_anims/Armature_001/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_4kpje")
 
 [node name="score_2" type="Label" parent="GridContainer/player_2_screen/SubViewport/player2"]
 offset_right = 40.0
@@ -135,7 +144,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.821, 9.04872, 26.7007)
 [node name="Spawning6" type="Node3D" parent="spawn_points"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.9187, 10.5199, 9.85177)
 
+[node name="CyberpunkGamingRaveByInfraction[noCopyrightMusic]BlackIce" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_m36re")
+volume_db = -19.088
+autoplay = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 
 [editable path="GridContainer/SubViewportContainer/SubViewport/player1"]
+[editable path="GridContainer/SubViewportContainer/SubViewport/player1/Player_w_anims"]
 [editable path="GridContainer/player_2_screen/SubViewport/player2"]
+[editable path="GridContainer/player_2_screen/SubViewport/player2/Player_w_anims"]

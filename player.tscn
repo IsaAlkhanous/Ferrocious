@@ -1,26 +1,34 @@
-[gd_scene load_steps=9 format=3 uid="uid://ypo3kjihcd7w"]
+[gd_scene load_steps=8 format=3 uid="uid://ypo3kjihcd7w"]
 
 [ext_resource type="Script" path="res://Scripts/character_body_3d.gd" id="1_gi7gy"]
+[ext_resource type="PackedScene" uid="uid://ctbrumegifm7y" path="res://assets/Player_w_anims.glb" id="2_sbayh"]
 [ext_resource type="PackedScene" uid="uid://o4sa7ou3twpm" path="res://Scenes/pistol.tscn" id="2_vgpxi"]
 [ext_resource type="Texture2D" uid="uid://cf3k0u5kbt643" path="res://assets/crosshair.png" id="3_k202o"]
+[ext_resource type="AudioStream" uid="uid://dltbug1o1bbwu" path="res://assets/Shoot1.mp3" id="5_1ulk6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0y3ug"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ufkrh"]
 height = 1.2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4itqr"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8mxs"]
-albedo_color = Color(0.443137, 1, 1, 1)
-detail_enabled = true
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rdqu5"]
-material = SubResource("StandardMaterial3D_n8mxs")
-
 [node name="player1" type="CharacterBody3D"]
 script = ExtResource("1_gi7gy")
+
+[node name="Player_w_anims" parent="." instance=ExtResource("2_sbayh")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0.340869)
+
+[node name="Skeleton3D" parent="Player_w_anims/Armature_001" index="0"]
+bones/1/position = Vector3(-8.50887e-09, 0, -4.03667e-09)
+bones/1/rotation = Quaternion(0.991265, -0.1153, 0.0435983, -0.0468925)
+bones/2/rotation = Quaternion(0.00284732, -2.83102e-08, -0.0022348, 0.999993)
+bones/3/rotation = Quaternion(-0.00520178, 6.5074e-08, 0.00408277, 0.999978)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/position = Vector3(0.228033, 0.111118, -0.0024873)
+bones/4/rotation = Quaternion(-0.497375, -0.216304, 0.163692, 0.824036)
+bones/5/rotation = Quaternion(-0.0494426, 0.206907, 0.673301, 0.708104)
+bones/6/position = Vector3(-0.239849, 0.0951476, 0.00602171)
+bones/6/rotation = Quaternion(-0.725194, -0.122175, 0.0806997, 0.672796)
+bones/7/rotation = Quaternion(-0.108088, -0.0600571, -0.108843, 0.986338)
 
 [node name="standingCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -39,9 +47,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 [node name="eyes" type="Node3D" parent="head"]
 
 [node name="Camera3D" type="Camera3D" parent="head/eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.298528, 0.233303, 0)
+fov = 83.6
 
 [node name="Pistol" parent="head/eyes/Camera3D" groups=["player"] instance=ExtResource("2_vgpxi")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.198352, -0.108245, -0.507495)
+visible = false
 
 [node name="TextureRect" type="TextureRect" parent="head/eyes/Camera3D"]
 anchors_preset = 8
@@ -64,7 +75,7 @@ target_position = Vector3(0, 1, 0)
 hit_from_inside = true
 hit_back_faces = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.952987, 0)
-material_override = SubResource("StandardMaterial3D_4itqr")
-mesh = SubResource("CapsuleMesh_rdqu5")
+[node name="Shoot1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_1ulk6")
+
+[editable path="Player_w_anims"]
