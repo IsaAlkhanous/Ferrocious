@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctwm18pnx36fk"]
+[gd_scene load_steps=7 format=3 uid="uid://ctwm18pnx36fk"]
 
 [ext_resource type="Script" path="res://how_to_play.gd" id="1_er7mn"]
 [ext_resource type="Texture2D" uid="uid://b6570fclcfwkw" path="res://assets/HowToPlay.webp" id="2_e17w4"]
 [ext_resource type="Texture2D" uid="uid://cx63bndnra4u5" path="res://assets/main_menu/BackButton.webp" id="3_gw78c"]
 [ext_resource type="Texture2D" uid="uid://b67jpovbjp1e0" path="res://assets/main_menu/InvBackButton.webp" id="4_xnokr"]
+[ext_resource type="Texture2D" uid="uid://dt21g88udctky" path="res://assets/image.webp" id="5_k5yxr"]
 
 [sub_resource type="Theme" id="Theme_bawok"]
 
@@ -58,14 +59,34 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 metadata/_tab_index = 0
 
-[node name="Mouse & Keyboard" type="TabBar" parent="TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
+[node name="Label" type="Label" parent="TabContainer/About"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Move your character with - WASD / Left Stick 
+Press and Hold to Run - Shift / L2 / L3 
+Press and Hold to Crouch - Ctrl / C / Circle 
+Press to Jump - Space / X, again for a Double Jump"
 
 [node name="Controller" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 2
+metadata/_tab_index = 1
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Controller"]
+layout_mode = 0
+offset_right = 1390.0
+offset_bottom = 577.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_k5yxr")
 
 [connection signal="pressed" from="NinePatchRect/Back" to="." method="_on_back_pressed"]
