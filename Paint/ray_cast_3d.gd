@@ -1,6 +1,6 @@
 extends RayCast3D
 
-const SPAWN_RAYCAST = preload("res://Scenes/spawn_raycast.tscn") 
+const SPAWN_RAYCAST = preload("res://Scenes/spawn_raycast.tscn")
 @onready var world: Node3D = $"../../../../.."
 @onready var multi_mesh_instance_3d: MultiMeshInstance3D = $"../../../../../MultiMeshInstance3DWhite"
 var all_transform: Array[Transform3D]

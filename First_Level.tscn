@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://d6gewbigoh1f"]
+[gd_scene load_steps=16 format=3 uid="uid://d6gewbigoh1f"]
 
+[ext_resource type="Script" path="res://first_level.gd" id="1_5edrf"]
 [ext_resource type="PackedScene" uid="uid://bgok3cq4stw2l" path="res://assets/New Map.tscn" id="1_5jesf"]
 [ext_resource type="PackedScene" uid="uid://ypo3kjihcd7w" path="res://player.tscn" id="2_0s2p7"]
 [ext_resource type="PackedScene" uid="uid://bhk2y8n75xwdy" path="res://pause_menu.tscn" id="3_lqhr1"]
@@ -8,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cefteckdl8mbi" path="res://Paint/multi_mesh_instance_3d_black.tscn" id="5_fs366"]
 [ext_resource type="PlaneMesh" uid="uid://cw5o77c3wve7d" path="res://Paint/shot.tres" id="5_qlwq2"]
 [ext_resource type="Material" uid="uid://dmxdq32x4juhf" path="res://Paint/Black_Splash.tres" id="6_wsc78"]
+[ext_resource type="Script" path="res://timer.gd" id="9_qjwpv"]
+[ext_resource type="Script" path="res://spawn_points.gd" id="9_vipt8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a57p"]
 
@@ -25,6 +28,7 @@ transform_format = 1
 mesh = SubResource("PlaneMesh_b08kx")
 
 [node name="Map" type="Node3D" groups=["level"]]
+script = ExtResource("1_5edrf")
 
 [node name="Node3D" parent="." instance=ExtResource("1_5jesf")]
 
@@ -58,10 +62,15 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.176734, -0.116165, -0
 [node name="MeshInstance3D" parent="GridContainer/SubViewportContainer/SubViewport/player1" index="4"]
 material_override = SubResource("StandardMaterial3D_8a57p")
 
+[node name="score_1" type="Label" parent="GridContainer/SubViewportContainer/SubViewport/player1"]
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="player_2_screen" type="SubViewportContainer" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/player_2_screen"]
@@ -73,6 +82,10 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75125, 20.6522, 4.19405)
 safe_margin = 0.02
 player_id = 2
+
+[node name="score_2" type="Label" parent="GridContainer/player_2_screen/SubViewport/player2"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -87,4 +100,42 @@ script = ExtResource("5_ea5wu")
 multimesh = SubResource("MultiMesh_0xk8r")
 script = ExtResource("5_ea5wu")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+script = ExtResource("9_qjwpv")
+
+[node name="Label" type="Label" parent="Timer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="spawn_points" type="Node3D" parent="."]
+script = ExtResource("9_vipt8")
+
+[node name="Spawning1" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.73107, 8.61194, 0)
+
+[node name="Spawning2" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4694, 8.61194, 8.44677)
+
+[node name="Spawning3" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0597, 16.0798, 24.9239)
+
+[node name="Spawning4" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.519098, 16.0294, 27.5208)
+
+[node name="Spawning5" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.821, 9.04872, 26.7007)
+
+[node name="Spawning6" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.9187, 10.5199, 9.85177)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
 [editable path="GridContainer/SubViewportContainer/SubViewport/player1"]
+[editable path="GridContainer/player_2_screen/SubViewport/player2"]

@@ -7,8 +7,10 @@ extends CharacterBody3D
 @export var player_id = 1
 @onready var gun_anim = $head/eyes/Camera3D/Pistol/AnimationPlayer
 @onready var gun_barrel = $head/eyes/Camera3D/Pistol/RayCast3D
-@onready var marker_3d: Marker3D = $head/eyes/Camera3D/Marker3D
 @onready var player_camera_3d: Camera3D = $head/eyes/Camera3D
+@onready var spawn_points: Node3D = $"../../../../spawn_points"
+@onready var label_timer: Label = $"../../../../Timer/Label"
+@onready var timer: Timer = $"../../../../Timer"
 
 #bullets
 var bullet
@@ -60,33 +62,40 @@ var head_bobbing_vector = Vector2.ZERO
 var head_bobbing_index = 0.0
 var head_bobbing_intensity = 0.0
 
-var health = 3
+var health = 6
+
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) #lock mouse into game window
 	if player_id == 1:
 		bullet = load("res://Scenes/bullet_1.tscn")
 	else:
 		bullet = load("res://Scenes/bullet_2.tscn")
+	Global.score_1Label = $"../../../SubViewportContainer/SubViewport/player1/score_1"
+	Global.score_2Label = $"../../../player_2_screen/SubViewport/player2/score_2"
+	Global.score_1Label.text = "Score: %s" % Global.player_score_1
+	Global.score_2Label.text = "Score: %s" % Global.player_score_2
 	
+	if player_id == 1:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)  # Lock the mouse
 	# handle camera movement using the mouse (and Quit)
 func _input(event):
 	if event is InputEventMouseMotion and player_id == 1: #handle mouse rotation
 		rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENS))
 		head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENS))
 		head.rotation.x = clamp(head.rotation.x,deg_to_rad(-89),deg_to_rad(89))
-		
+
 	# Movement mechanics
 func _physics_process(delta: float) -> void:
 	# Getting movement input
 	var input_dir := Input.get_vector("left_%s" % [player_id], "right_%s" % [player_id], "forwards_%s" % [player_id], "backwards_%s" % [player_id])
-	
 	#crouch mechanics
 	if Input.is_action_pressed("crouch_%s" % [player_id]) || sliding: # it sets the speed to crouch speed and also added lerp to look more natural
 		current_speed = CROUCHING_SPEED 
 		head.position.y = lerp(head.position.y, 1.2 - CROUCHING_DEPTH,delta * lerp_speed)
 		standing_collision.disabled = true
 		crouching_collision.disabled = false
-		
+	
 		if sprinting && input_dir != Vector2.ZERO:
 			sliding= true
 			slide_vector = input_dir
@@ -115,7 +124,7 @@ func _physics_process(delta: float) -> void:
 		if slide_timer <= 0:
 			sliding = false
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor():		
 		velocity += get_gravity() * delta
 	
 	# Handle jump, counts jump number and jumps if its less than 2.
@@ -175,7 +184,8 @@ func _physics_process(delta: float) -> void:
 	rotate_y(-x_axis * joystick_sens * delta)
 	head.rotate_x(-y_axis * joystick_sens * delta)
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
-
+	
+	label_timer.text = "%s" % [timer.time_left]
 	#Shooting mechanics
 	if Input.is_action_just_pressed("shooting_%s" % [player_id]):
 		if !gun_anim.is_playing():
@@ -185,11 +195,18 @@ func _physics_process(delta: float) -> void:
 			get_parent().add_child(instance)
 		
 	move_and_slide()
-	
+
 func hit():
 	health -= 1
 	if health <= 0:
-		queue_free()
-		
-
+		if player_id == 2:
+			Global.player_score_1 +=1
+			Global.score_1Label.text = "Score: %s" % Global.player_score_1
+			health = 6
+			spawn_points.spawn_player(self)
+		elif player_id == 1:
+			Global.player_score_2 +=1
+			Global.score_2Label.text = "Score: %s" % Global.player_score_2
+			health = 6
+			spawn_points.spawn_player(self)
 		

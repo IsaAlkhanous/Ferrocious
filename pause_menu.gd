@@ -28,8 +28,7 @@ func Restart():
 	multi_mesh_instance_3d = temp1[0]
 	multi_mesh_instance_3d.multimesh.instance_count = 0
 	get_tree().reload_current_scene()
-func Settings():
-	get_tree().c
+
 func Main_Menu():
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/menu.tscn")
@@ -48,8 +47,5 @@ func _on_resume_pressed() -> void:
 func _on_restart_pressed() -> void:
 	Restart()
 	
-func _on_settings_pressed() -> void:
-	Settings()
-
 func _on_main_menu_pressed() -> void:
 	Main_Menu()
